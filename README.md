@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # xtwl_shop
 
 > A Shop Web Site
@@ -28,3 +29,7 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# practice-vue
+vue的渐进式练习
+>>>>>>> 6382e4ecff60479872266ff197fb00df0871be86
