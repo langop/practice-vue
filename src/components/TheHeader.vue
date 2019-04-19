@@ -2,10 +2,10 @@
   <div class="hello">
     <nav>
       <div class="head_left">
-        <router-link :to="currentIndex" tag="img" class="headLogo" :src="logo" :title="logo" alt="LOGO" height="50"></router-link>
+        <router-link :to="currentBusinessIndexUrl" tag="img" class="headLogo" :src="logo" :title="logo" alt="LOGO" height="50"></router-link>
       </div>
       <div class="head_middle">
-        <router-link to="/takeout/index" class="menu">外卖</router-link>
+        <router-link to="/takeout" class="menu">外卖</router-link>
       </div>
       <div class="head_right">
         <ul class="right_menu">
@@ -27,9 +27,11 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
   name: 'TakeoutBusiness',
   data () {
+
     const rightMenus = [
       {"name":"入驻申请", "iconclass": "fa fa-male", "url":"321"},
       {"name":"联系BD", "iconclass": "fa fa-phone", "url":"123"},
@@ -48,11 +50,14 @@ export default {
     };
 
     return {
-      currentIndex: "/takeout",
       logo: 'static/images/logo.png',
       rightMenus,
       user,
     }
+  },
+
+  computed: {
+    ...mapState(['currentBusinessIndexUrl'])
   }
 }
 </script>
