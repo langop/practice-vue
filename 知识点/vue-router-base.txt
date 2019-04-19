@@ -1,0 +1,46 @@
+全局使用：this.$router（这里有r结尾）
+当前组件：this.$route[.params/.query/.hash]
+
+路由参数：'/user/:username/post/:post_id'
+[普通]使用this.$route.params接受
+[解耦]使用props接受（router需配置props:true）
+问题一：不同的地址，组件实例会被复用，钩子函数不会再调用
+解决：watch $route(to,from) 或者 2.2以上的导航守卫函数beforeRouteUpdate(to,from,next)
+
+路由通配符：'/*', '/user-*'
+使用this.$route.params.pathMatch接受
+
+路由正则：'/params-with-regex/:id(\\d+)'
+可匹配/params-with-regex/321，参考https://github.com/vuejs/vue-router/blob/dev/examples/route-matching/app.js
+
+优先级：按照定义顺序，所以 /* 一般放在最后，用来处理特殊情况
+
+命名视图: 把component改成components，eg: <router-view name='leftSide'>
+components: {
+	default: compA_1,
+	leftSide: compA_2
+}
+
+全局举例：
+{
+	path: '/user/:id',
+	name: 'langop',
+	components: {
+		default: compA_1,
+		leftSide: compA_2
+	},
+	children: [
+		{
+			path:'',
+			component: UserHome
+		}
+		{
+			path:'hj',
+			components: HJ
+		},
+		{
+			path:'hj2',
+			component: HJ2
+		}
+	]
+}
