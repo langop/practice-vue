@@ -5,8 +5,7 @@
         <router-link :to="currentIndex" tag="img" class="headLogo" :src="logo" :title="logo" alt="LOGO" height="50"></router-link>
       </div>
       <div class="head_middle">
-        <router-link to="/waimai" class="menu">外卖</router-link>
-        <router-link to="/tuangou" class="menu">团购</router-link>
+        <router-link to="/takeout/index" class="menu">外卖</router-link>
       </div>
       <div class="head_right">
         <ul class="right_menu">
@@ -24,15 +23,12 @@
         </ul>
       </div>
     </nav>
-    <div>
-    <router-view/>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Main',
+  name: 'TakeoutBusiness',
   data () {
     const rightMenus = [
       {"name":"入驻申请", "iconclass": "fa fa-male", "url":"321"},
@@ -52,7 +48,7 @@ export default {
     };
 
     return {
-      currentIndex: "/waimai",
+      currentIndex: "/takeout",
       logo: 'static/images/logo.png',
       rightMenus,
       user,
