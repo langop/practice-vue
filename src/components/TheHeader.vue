@@ -55,10 +55,15 @@ export default {
       user,
     }
   },
-
+  mounted() {
+    this.changeLastLoginType();
+  },
   computed: {
     ...mapState(['currentBusinessIndexUrl'])
-  }
+  },
+methods: {
+    ...mapActions(['changeLastLoginType']),
+}
 }
 </script>
 

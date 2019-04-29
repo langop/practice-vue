@@ -1,3 +1,5 @@
+import API from '@/api/request'
+
 const state = {
     shopInfo: {
         shopId:'1',
@@ -28,7 +30,10 @@ const actions = {
     //请求修改lastLoginType
     changeLastLoginType(context, lastLoginType) {
         //TODO axios
-        context.commit("changeLoginType", lastLoginType);
+        API.ajaxReadPost('/readShop/queryPcShopInfo', null, function(result){
+            console.log("mock /readShop/queryPcShopInfo: ", result);
+        });
+        //context.commit("changeLoginType", lastLoginType);
     }
 
 }
