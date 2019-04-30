@@ -8,9 +8,11 @@ import routers from './router'
 import Vuex from 'vuex'
 import storeData from './store'
 
+import Api from '@/api/request'
 import App from './App'
 
 Vue.config.productionTip = false
+Vue.prototype.$api = Api
 
 Vue.use(Router)
 Vue.use(Vuex)

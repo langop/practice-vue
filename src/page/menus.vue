@@ -1,13 +1,52 @@
 <template>
     <div id="businessMenus">
-        <router-link to="/takeout/index">首页</router-link>
-        <router-link to="/takeout/product">商品管理</router-link>
+        <ul>
+            <li v-for="menu in currentMenus" :key="menu.link">
+                <router-link :to="menu.link">{{menu.title}}</router-link>
+            </li>
+        </ul>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
-    
+    data() {
+        return {
+            
+        }
+    },
+    computed: {
+        ...mapState(['currentMenus'])
+    },
 }
 </script>
+
+<style scoped>
+    #businessMenus > ul{
+        display: block;
+        background: white;
+        overflow: hidden;
+        padding: 0 20px;
+    }
+
+    #businessMenus > ul > li{
+        display: block;
+        float: left;
+        min-width: 100px;
+        text-align: center;
+        line-height: 36px;
+    }
+
+    a{
+        color: #585858;
+    }
+    a:hover{
+        color: #1c95e4;
+    }
+    a.router-link-active{
+        color: #1c95e4;
+    }
+</style>
+

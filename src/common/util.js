@@ -1,4 +1,4 @@
-const util = {};
+let util = {};
 
 //getUUID：获取uuid
 util.getUUID = function(len){

@@ -17,3 +17,11 @@ ul, ul li {
   padding: 0;
   list-style: none;
 }
+
+div.blankClass{
+  width: 300px;
+  font-size: 32px;
+  text-align: center;
+  color: rgb(192, 192, 192);
+  margin: 200px auto;
+}

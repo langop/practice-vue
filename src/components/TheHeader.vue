@@ -5,17 +5,20 @@
         <router-link :to="currentBusinessIndexUrl" tag="img" class="headLogo" :src="logo" :title="logo" alt="LOGO" height="50"></router-link>
       </div>
       <div class="head_middle">
-        <router-link to="/takeout" class="menu">外卖</router-link>
+        <router-link v-if="shopInfo.isOpenW==1" to="/takeout" class="menu">外卖{{wStatusStr}}</router-link>
+        <router-link v-if="shopInfo.isOpenT==1" to="/groupBuy" class="menu">团购{{tStatusStr}}</router-link>
+        <router-link v-if="shopInfo.isOpenP==1" to="/collage" class="menu">拼团砍价{{pStatusStr}}</router-link>
+        <router-link v-if="shopInfo.isOpenK==1" to="/bargain" class="menu">砍价{{kStatusStr}}</router-link>
       </div>
       <div class="head_right">
         <ul class="right_menu">
           <li v-for="item in rightMenus" :key="item.name" :data-url="item.url"><i :class="item.iconclass"></i> {{item.name}}</li>
           <li class="userinfo">
-             <img :src="user.shopIcon" class="accountImg" alt="">
-             <span>{{user.account}}</span>
+             <img :src="shopInfo.logo" class="accountImg" alt="">
+             <span>{{shopInfo.shopName}}</span>
              <!-- 用户信息 -->
              <section>
-                <p v-for="info of user.functions" :key="info.name">
+                <p v-for="info of functions" :key="info.name">
                   <router-link :to="info.url">{{info.name}}</router-link>
                 </p>   
              </section>
@@ -27,43 +30,48 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
   name: 'TakeoutBusiness',
   data () {
-
     const rightMenus = [
       {"name":"入驻申请", "iconclass": "fa fa-male", "url":"321"},
       {"name":"联系BD", "iconclass": "fa fa-phone", "url":"123"},
       {"name":"消息", "iconclass": "fa fa-bell-o", "url":"321"}
     ];
 
+    const functions = [
+      {name:"店铺信息", url: "/"},
+      {name:"业务信息", url: "/"},
+      {name:"账号密码设置", url: "/"},
+      {name:"幸福学院", url: "/"}
+    ];
+
     const user = {
       "shopIcon": "static/images/user8.jpg",
-      "account": "卢晓杰" ,
-      "functions": [
-        {name:"店铺信息", url: "/"},
-        {name:"业务信息", url: "/"},
-        {name:"账号密码设置", url: "/"},
-        {name:"幸福学院", url: "/"}
-      ]
+      "account": "卢晓杰"
     };
 
     return {
       logo: 'static/images/logo.png',
       rightMenus,
+      functions,
       user,
     }
   },
   mounted() {
-    this.changeLastLoginType();
+    this.$nextTick(() => {
+      this.queryPcShopInfo();
+    });
   },
   computed: {
-    ...mapState(['currentBusinessIndexUrl'])
+    ...mapState(['currentBusinessIndexUrl', 'shopInfo']),
+    ...mapGetters(['getBusinessStatus', 'wStatusStr', 'pStatusStr', 'tStatusStr', 'kStatusStr']),
+    
   },
-methods: {
-    ...mapActions(['changeLastLoginType']),
-}
+  methods: {
+      ...mapActions(['queryPcShopInfo']),
+  }
 }
 </script>
 
@@ -84,7 +92,7 @@ methods: {
   }
 
   /* 业务导航选中 */
-  nav .head_middle .menu{
+  nav .head_middle a.menu{
     display: inline-block;
     color: white !important;
     font-size: 16px;
@@ -95,8 +103,9 @@ methods: {
     text-align: center;
     margin: 0 5px;
     cursor: pointer;
+    padding:0 10px;
   }
-  nav .head_middle .menu.router-link-active{
+  nav .head_middle a.menu.router-link-active{
     background: #1c95e4;
   }
 
@@ -110,7 +119,7 @@ methods: {
     cursor: pointer;
   }
   nav .head_right .right_menu li + li{
-    border-left: 2px solid #353d46;
+    border-left: 1px dotted #353d46;
   }
 
   nav .head_right .right_menu li:not(:last-child):hover{
@@ -132,13 +141,17 @@ methods: {
     top: 60px;
     right: 0px;
     background: white;
+    border-top: 2px solid red;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
     box-shadow: 0 0 1px #919191;
   }
   nav>.head_right>.right_menu>li.userinfo>section p{    
     height: 45px;
     line-height: 45px;
-    box-shadow: 0 0 1px #919191;
     text-align: center;
+    font-size: 13px;
+    border-bottom: 1px solid #e2e2e2;
   }
   a{
     color: #1c95e4;

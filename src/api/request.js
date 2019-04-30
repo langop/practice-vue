@@ -10,9 +10,8 @@ Mock.mockData(Axios);
 
 const request = {}
 
-//公共参数，url格式：'/xx/yy'
-const requestBaseData = function(uri) {
-
+//公共参数，uri格式：'/xx/yy'
+const requestBaseData = function(uri) { 
 	let result = /^\/(\w+)\/(\w+)(\?.*)?$/.exec(uri);
 	if(!result) {
 		return false;
@@ -27,6 +26,7 @@ const requestBaseData = function(uri) {
 	const secretKey = md5.digest("hex");
 
 	return {
+		"version": "2.5",
 		modular,
 		requestname,
 		"param": {
@@ -37,17 +37,17 @@ const requestBaseData = function(uri) {
 			"custId": "EFAD2C1757EA418BABA8D58D49B9DDFB",
 			"userKey": "878CDAC9D786481BE053191EA8C02E8D",
 			"secretKey": secretKey
-		},
-		"version": "2.5"
+		}
 	}
 }
 
+//common post function
 const ajaxPost = (baseUrl, uri, data, successFuc, failFuc) => {
-	// let baseInfo = requestBaseData(uri);
-	// let param = Object.assign({}, baseInfo.param, data);
+	/* let baseInfo = requestBaseData(uri);
+	let param = Object.assign({}, baseInfo.param, data);
 	
-	// const reqData = Object.assign({}, baseInfo, {param});
-	//Axios.post(baseUrl, JSON.stringify(reqData)).then(response => {
+	const reqData = Object.assign({}, baseInfo, {param});
+	Axios.post(baseUrl, JSON.stringify(reqData)).then(response => { */
 	Axios.post(uri).then(response => {	
 		let rspStatus =  response.status;
 		console.log(rspStatus);
@@ -60,15 +60,6 @@ const ajaxPost = (baseUrl, uri, data, successFuc, failFuc) => {
 		if(failFuc) failFuc(error);
 		else console.log(`request ajaxPost error: `, error);
 	});
-
-	// let xhr = new XMLHttpRequest();
-	// xhr.onreadystatechange = function(res){
-	// 	if (xhr.readyState == 4) {
-	// 		console.log("response: ", xhr);
-	// 	}
-	// }
-	// xhr.open('post', url);
-	// xhr.send(JSON.stringify({modular, requestname, param}));
 }
 
 request.ajaxReadPost = function(uri, ...params){
