@@ -37,6 +37,14 @@ const businessRoutes = {
           path: 'product',
           name: 'wproduct',
           component: () => import('@/page/takeout/product')
+        }, {
+          path: 'businessTimeSet',
+          name: 'wbusinessTimeSet',
+          component: () => import('@/page/takeout/businessTime')
+        }, {
+          path: 'comment',
+          name: 'wcomment',
+          component: () => import('@/page/takeout/comment')
         }
         
       ]

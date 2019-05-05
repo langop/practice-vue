@@ -1,7 +1,7 @@
 <template>
     <div id="businessMenus">
         <ul>
-            <li v-for="menu in currentMenus" :key="menu.link">
+            <li v-for="menu in currentMenus" :key="menu.link" :class="{smallMenu:menu.small}">
                 <router-link :to="menu.link">{{menu.title}}</router-link>
             </li>
         </ul>
@@ -34,9 +34,10 @@ export default {
     #businessMenus > ul > li{
         display: block;
         float: left;
-        min-width: 100px;
         text-align: center;
-        line-height: 36px;
+        line-height: 20px;
+        padding: 0 20px;
+        margin: 8px 0;
     }
 
     a{
@@ -47,6 +48,15 @@ export default {
     }
     a.router-link-active{
         color: #1c95e4;
+    }
+
+    #businessMenus .smallMenu {
+        border-left: 1px solid #777777;
+        font-size: 0.9em;
+    }
+    #businessMenus .smallMenu+.smallMenu{
+        border: none;
+        padding: 0 10px;
     }
 </style>
 

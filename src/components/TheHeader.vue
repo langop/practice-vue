@@ -47,16 +47,10 @@ export default {
       {name:"幸福学院", url: "/"}
     ];
 
-    const user = {
-      "shopIcon": "static/images/user8.jpg",
-      "account": "卢晓杰"
-    };
-
     return {
       logo: 'static/images/logo.png',
       rightMenus,
-      functions,
-      user,
+      functions
     }
   },
   mounted() {

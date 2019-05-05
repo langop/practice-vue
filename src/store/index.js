@@ -7,7 +7,8 @@ const MenuMap = [
         {title: '控制台', link: '/takeout/index'},
         {title: '订单管理', link: '/takeout/order'},
         {title: '商品管理', link: '/takeout/product'},
-        {title: '评价管理', link: '/takeout/comment', small: true}
+        {title: '评价管理', link: '/takeout/comment', small: true},
+        {title: '营业设置', link: '/takeout/businessTimeSet', small: true}
     ],
     [
         {title: '控制台t', link: '/groupBuy/index'},
@@ -85,8 +86,12 @@ const mutations = {
         }
     },
     changeLastLoginType(state, type) {
-        state.shopInfo.lastLoginType = type;
-        state.currentMenus = MenuMap[type];
+        if(type){
+            state.shopInfo.lastLoginType = type;
+            state.currentMenus = MenuMap[type];
+        }else{
+            console.log("切换业务失败");
+        }
     }
    
 }
