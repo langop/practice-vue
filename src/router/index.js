@@ -23,7 +23,7 @@ const businessRoutes = {
       children:[
         {
           path: '',
-          rediret: 'index'
+          redirect: 'index'
         },
         {
           path: 'index',
@@ -38,6 +38,7 @@ const businessRoutes = {
           name: 'wproduct',
           component: () => import('@/page/takeout/product')
         }
+        
       ]
     },
     {
@@ -50,7 +51,7 @@ const businessRoutes = {
       children:[
         {
           path: '',
-          rediret: 'index'
+          redirect: 'index'
         },
         {
           path: 'index',
@@ -77,7 +78,7 @@ const businessRoutes = {
       children:[
         {
           path: '',
-          rediret: 'index'
+          redirect: 'index'
         },
         {
           path: 'index',
@@ -104,7 +105,7 @@ const businessRoutes = {
       children:[
         {
           path: '',
-          rediret: 'index'
+          redirect: 'index'
         },
         {
           path: 'index',

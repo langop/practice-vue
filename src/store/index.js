@@ -1,5 +1,6 @@
 import Api from '@/api/request'
 
+//各个业务的功能菜单
 const MenuMap = [
     null, //0
     [
@@ -26,12 +27,6 @@ const MenuMap = [
     ]
 ];
 
-const state = {
-    shopInfo: {},
-    currentMenus: [],
-    currentBusinessIndexUrl: '', //当前业务的首页地址
-}
-
 const getBusinessStatusStr = function(sts){
     let oriSts = '';
     switch(sts){
@@ -50,6 +45,13 @@ const getBusinessStatusStr = function(sts){
     }
     return oriSts;
 }
+
+const state = {
+    shopInfo: {},
+    currentMenus: [],
+    currentBusinessIndexUrl: '', //当前业务的首页地址
+}
+
 const getters = {
     wStatusStr(state) {
         return getBusinessStatusStr(state.shopInfo.wStatus);
@@ -81,6 +83,10 @@ const mutations = {
         }else{
             console.log("未开通业务");
         }
+    },
+    changeLastLoginType(state, type) {
+        state.shopInfo.lastLoginType = type;
+        state.currentMenus = MenuMap[type];
     }
    
 }

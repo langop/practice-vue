@@ -1,6 +1,6 @@
 <template>
-    <div id="takeoutMain">
-        外卖商品页面
+    <div id="">
+        t商品页面
     </div>
 </template>
 

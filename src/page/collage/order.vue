@@ -1,6 +1,6 @@
 <template>
-    <div id="takeoutMain">
-        外卖订单页面
+    <div>
+        collage订单页面
     </div>
 </template>
 

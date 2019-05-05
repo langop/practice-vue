@@ -5,10 +5,10 @@
         <router-link :to="currentBusinessIndexUrl" tag="img" class="headLogo" :src="logo" :title="logo" alt="LOGO" height="50"></router-link>
       </div>
       <div class="head_middle">
-        <router-link v-if="shopInfo.isOpenW==1" to="/takeout" class="menu">外卖{{wStatusStr}}</router-link>
-        <router-link v-if="shopInfo.isOpenT==1" to="/groupBuy" class="menu">团购{{tStatusStr}}</router-link>
-        <router-link v-if="shopInfo.isOpenP==1" to="/collage" class="menu">拼团砍价{{pStatusStr}}</router-link>
-        <router-link v-if="shopInfo.isOpenK==1" to="/bargain" class="menu">砍价{{kStatusStr}}</router-link>
+        <router-link v-if="shopInfo.isOpenW==1" to="/takeout" class="menu" @click.native="changeLastLoginType('1')">外卖{{wStatusStr}}</router-link>
+        <router-link v-if="shopInfo.isOpenT==1" to="/groupBuy" class="menu" @click.native="changeLastLoginType('2')">团购{{tStatusStr}}</router-link>
+        <router-link v-if="shopInfo.isOpenP==1" to="/collage" class="menu" @click.native="changeLastLoginType('4')">拼团砍价{{pStatusStr}}</router-link>
+        <router-link v-if="shopInfo.isOpenK==1" to="/bargain" class="menu" @click.native="changeLastLoginType('5')">砍价{{kStatusStr}}</router-link>
       </div>
       <div class="head_right">
         <ul class="right_menu">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from 'vuex'
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 export default {
   name: 'TakeoutBusiness',
   data () {
@@ -71,6 +71,7 @@ export default {
   },
   methods: {
       ...mapActions(['queryPcShopInfo']),
+      ...mapMutations(['changeLastLoginType'])
   }
 }
 </script>
