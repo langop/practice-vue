@@ -1,0 +1,6 @@
+export const readInterfaceUrl='http://192.168.8.254:8080/xtwl_read_interface/cmd'
+export const writeInterfaceUrl='http://192.168.8.254:8080/xtwl_write_interface/cmd'
+export const imageUploadUrl='http://192.168.8.254:8080/xtwl_universal_interface/upload'
+export const commonInterfaceUrl='http://192.168.8.254:8080/xtwl_universal_interface/cmd'
+export const secret='9fba617a34604e4884d8253d23f8d60e'
+export const secret_img='cd20493c2fa6420384b8a5063f449013'
