@@ -25,3 +25,11 @@ div.blankClass{
   color: rgb(192, 192, 192);
   margin: 200px auto;
 }
+
+.padding15{
+  padding: 15px;
+}
+
+.bgWhite{
+  background: white;
+}
