@@ -1,5 +1,7 @@
 import MockAdapter from 'axios-mock-adapter'
 
+
+
 const shopInfo = {
     "account": "16612345678",
     "password": "e10adc3949ba59abbe56e057f20f883e",
@@ -27,6 +29,8 @@ const shopInfo = {
     "wBHours": "00:00--00:00",
     "wBStatus": "1",
 };
+
+
 
 export default {
     mockData(axios) {

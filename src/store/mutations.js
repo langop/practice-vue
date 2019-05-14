@@ -47,6 +47,7 @@ const mutations = {
         if(type){
             state.shopInfo.lastLoginType = type;
             state.currentMenus = MenuMap[type];
+            state.currentBusinessIndexUrl = MenuMap[type][0].link;
         }else{
             console.log("切换业务失败");
         }

@@ -2,7 +2,7 @@
   <div class="hello">
     <nav>
       <div class="head_left">
-        <router-link :to="currentBusinessIndexUrl" tag="img" class="headLogo" :src="logo" :title="logo" alt="LOGO" height="50"></router-link>
+        <router-link :to="currentBusinessIndexUrl" tag="img" class="headLogo" :src="logo" title="logo" alt="LOGO" height="50"></router-link>
       </div>
       <div class="head_middle">
         <router-link v-if="shopInfo.isOpenW==1" to="/takeout" class="menu" @click.native="changeLastLoginType('1')">外卖{{wStatusStr}}</router-link>
