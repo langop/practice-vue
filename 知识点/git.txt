@@ -61,6 +61,8 @@ git remote show <nickName>
 git remote remove <nickName>
 git fetch <nickName>	
 git push <nickName> <branchName|-all>
+删除本地的远程分支：git branch -r -d origin/BranchName
+远程删除git服务器上的分支：git push origin -d BranchName
 
 
 #设置追踪关系
