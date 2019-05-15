@@ -39,6 +39,7 @@ const mutations = {
         if(menuMap){
             state.currentMenus = menuMap;
             state.currentBusinessIndexUrl = menuMap[0].link;
+            state.currentAnalysisUrl = menuMap[2].link;
         }else{
             console.log("未开通业务");
         }
@@ -48,6 +49,7 @@ const mutations = {
             state.shopInfo.lastLoginType = type;
             state.currentMenus = MenuMap[type];
             state.currentBusinessIndexUrl = MenuMap[type][0].link;
+            state.currentAnalysisUrl = MenuMap[type][2].link;
         }else{
             console.log("切换业务失败");
         }
