@@ -107,22 +107,22 @@
                     <div class="todoBlock">
                         <el-row style="text-align: center;">
                             <el-col :span="8">
-                                <h3>{{indexData.waitCount}}</h3>
+                                <h3 :class="{colorRed:indexData.waitCount!='0'}">{{indexData.waitCount}}</h3>
                                 <p>待接单</p>
-                                <el-button v-if="indexData.waitCount=='0'">去查看</el-button>
-                                <el-button type="primary" v-else>去处理</el-button>
+                                <el-button v-if="indexData.waitCount=='0'" @click="gotoUrl('/takeout/order')">去查看</el-button>
+                                <el-button type="primary" v-else @click="gotoUrl('/takeout/order')">去处理</el-button>
                             </el-col>
                             <el-col :span="8">
-                                <h3>{{indexData.waitSendCount}}</h3>
+                                <h3 :class="{colorRed:indexData.waitSendCount!='0'}">{{indexData.waitSendCount}}</h3>
                                 <p>待发货订单</p>
-                                <el-button v-if="indexData.waitSendCount=='0'">去查看</el-button>
-                                <el-button type="primary" v-else>去处理</el-button>
+                                <el-button v-if="indexData.waitSendCount=='0'" @click="gotoUrl('/takeout/order')">去查看</el-button>
+                                <el-button type="primary" v-else @click="gotoUrl('/takeout/order')">去处理</el-button>
                             </el-col>
                             <el-col :span="8">
-                                <h3>{{indexData.refundingCount}}</h3>
+                                <h3 :class="{colorRed:indexData.refundingCount!='0'}">{{indexData.refundingCount}}</h3>
                                 <p>待退款订单</p>
-                                <el-button v-if="indexData.refundingCount=='0'">去查看</el-button>
-                                <el-button type="primary" v-else>去处理</el-button>
+                                <el-button v-if="indexData.refundingCount=='0'" @click="gotoUrl('/takeout/order')">去查看</el-button>
+                                <el-button type="primary" v-else @click="gotoUrl('/takeout/order')">去处理</el-button>
                             </el-col>
                         </el-row>
                     </div>
@@ -186,6 +186,9 @@ export default {
     methods: {
         bg(url) {
             return `background: url(${url}) no-repeat; background-size: 100% 100%`;
+        },
+        gotoUrl(hashUrl) {
+            this.$router.push(hashUrl);
         }
     },
     created() {
@@ -207,6 +210,10 @@ export default {
 </script>
 
 <style scoped>
+    .colorRed{
+        color: red!important;
+    }
+
     a.bannerLink{
         display: block;
         width: 100%;
