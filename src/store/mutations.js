@@ -54,7 +54,6 @@ const mutations = {
             console.log("切换业务失败");
         }
     }
-   
 }
 
 export default mutations;

@@ -8,7 +8,6 @@ const actions = {
             context.commit('queryPcShopInfo', result.result);
         });
     }
-
 }
 
 export default actions;

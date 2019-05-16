@@ -29,7 +29,49 @@ const shopInfo = {
 };
 
 //首页数据
-const windexData = {}
+const windexData = {
+    "afterSaleCount": "0",
+    "avgScore": " 5.0",
+    "bannerList": [{
+        title: "a",
+        banner: 'https://img.qiyuns.com/f32823322116b632d5d4fd762e9ee275',
+        bannerUrl: 'http://www.baidu.com'
+    }, {
+        title: "ab",
+        banner: 'https://img.qiyuns.com/cff2ac65bc447dbbfbe41759667016f0',
+        bannerUrl: 'http://www.baidu.com'
+    }],
+    "businessStatus": "1",
+    "custId": "EFAD2C1757EA418BABA8D58D49B9DDFB",
+    "evaluateCount": "0",
+    "isInWBusiness": "1",
+    "logo": "https://img.58xfcs.com/890ebee2eab13443b551eb6f6d781436",
+    "orderBean": {
+        "boxAmount": "1.11",
+        "boxComm": "0.00",
+        "freight": "0.00",
+        "goodsAmount": "15.00",
+        "goodsComm": "0.00",
+        "payAmount": "0.00",
+        "payCount": "0",
+        "refundAmount": "0.00",
+        "refundCount": "0",
+        "shopDiscount": "0.00",
+        "orderData": "1.52",
+        "orderCount": "169",
+        "turnData": "--",
+        "turnover": "0.00"
+    },
+    "platformStatus": "1",
+    "shopName": "薛大厨1号",
+    "time": "2019-05-16 08:33:10",
+    "todayOrderIncome": "0.00",
+    "todayValidOrder": "0",
+    "typeName": "特色早点",
+    "waitCount": "11",
+    "waitSendCount": "0",
+    "refundingCount": "1"
+}
 const tindexData = {}
 const pindexData = {}
 const kindexData = {}
@@ -47,6 +89,13 @@ export default {
         mock.onPost('/readShop/queryPcShopInfo').reply(200, shopInfoRsp);
 
         //2.
+        const windexDataRsp = {
+            "result": windexData,
+            "resultcode": "0",
+            "resultdesc": "success"
+        };
+        mock.onPost('/home/queryWaiMaiBusinessInfo').reply(200, windexDataRsp);
+
 
     }
 }

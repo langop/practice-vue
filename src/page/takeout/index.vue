@@ -1,12 +1,12 @@
 <template>
     <div class="padding15">
-        <el-row :gutter="20">
+        <el-row :gutter="15">
             <!-- 左边 -->
-            <el-col :span="12">
+            <el-col :span="14">
                 <!-- 运营配置广告展示 -->
-                <div class="padding15 bgWhite" v-if="bannerList.length>0">
+                <div class="padding15 bgWhite" v-if="indexData.bannerList&&indexData.bannerList.length>0">
                     <el-carousel :interval="5000" height="300px">
-                        <el-carousel-item v-for="item in bannerList" :key="item.title">
+                        <el-carousel-item v-for="item in indexData.bannerList" :key="item.title">
                             <a class="bannerLink" :style="bg(item.banner)" :href="item.bannerUrl" target="_blank"></a>
                         </el-carousel-item>        
                     </el-carousel>
@@ -30,7 +30,7 @@
                             <i class="el-icon-question"></i>
                         </el-tooltip>
                         <small class="latestTime">
-                            {{time}}更新
+                            {{indexData.time}}更新
                         </small>
 
                         <small class="index_more">
@@ -42,24 +42,51 @@
                     <!-- 同比数据展示 -->
                     <el-row>
                         <el-col :span="12">
-                            <ComparedData tp="0" dt="16" per="1.66"></ComparedData>
+                            <ComparedData tp="0" :dt="indexData.orderBean.orderCount" :per="indexData.orderBean.orderData"></ComparedData>
                         </el-col>
                         <el-col :span="12">
-                            <ComparedData tp="1" dt="156" per="-1.66"></ComparedData>
+                            <ComparedData tp="1" :dt="indexData.orderBean.turnover" :per="indexData.orderBean.turnData"></ComparedData>
                         </el-col>
                     </el-row>
-                    <el-divider></el-divider>
 
                     <!-- 具体数据展示 -->
-                    <div style="margin-bottom: 50px;">
-                        <el-row style="text-align: center;">
-                            <el-col :span="6">
-                                <h2><small>￥</small>1256.3</h2>
-                                <p>砍价支付金额</p>
+                    <div class="detailData">
+                        <el-row :gutter="15">
+                            <el-col :span="8">
+                                <el-card shadow="hover">
+                                    <h2><small>￥</small>{{indexData.orderBean.goodsAmount}}</h2>
+                                    <p>商品金额</p>
+                                </el-card>
                             </el-col>
-                            <el-col :span="6">
-                                <h2>125</h2>
-                                <p>砍价订单</p>
+                            <el-col :span="8" v-show="indexData.orderBean.boxAmount!='0.00'">
+                                <el-card shadow="hover">
+                                    <h2><small>￥</small>{{indexData.orderBean.boxAmount}}</h2>
+                                    <p>餐盒费</p>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card shadow="hover">
+                                    <h2><small>￥</small>{{indexData.orderBean.shopDiscount}}</h2>
+                                    <p>活动成本</p>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card shadow="hover">
+                                    <h2><small>￥</small>{{indexData.orderBean.goodsComm}}</h2>
+                                    <p>商品佣金</p>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8" v-show="indexData.orderBean.boxComm!='0.00'">
+                                <el-card shadow="hover">
+                                    <h2><small>￥</small>{{indexData.orderBean.boxComm}}</h2>
+                                    <p>餐盒佣金</p>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8" v-show="indexData.orderBean.freight!='0.00'">
+                                <el-card shadow="hover">
+                                    <h2><small>￥</small>{{indexData.orderBean.freight}}</h2>
+                                    <p>自行配送费</p>
+                                </el-card>
                             </el-col>
                         </el-row>
                     </div>
@@ -67,24 +94,35 @@
             </el-col>
 
             <!-- 右边 -->
-            <el-col :span="12">
+            <el-col :span="10">
                 <div class="padding15 bgWhite">
-                    <div style="border: 1px solid red;">
-                    </div>
+                    <ShopBusinessInfo v-if="indexData.avgScore"
+                        :shop-name="indexData.shopName" :type-name="indexData.typeName" 
+                        :shop-icon="indexData.logo" 
+                        :score="indexData.avgScore"
+                        style="margin-bottom:25px"></ShopBusinessInfo>
 
                     <p>代办事项</p>
                     <el-divider></el-divider>
                     <div class="todoBlock">
                         <el-row style="text-align: center;">
-                            <el-col :span="12">
-                                <h3>0</h3>
+                            <el-col :span="8">
+                                <h3>{{indexData.waitCount}}</h3>
                                 <p>待接单</p>
-                                <el-button>去查看</el-button>
+                                <el-button v-if="indexData.waitCount=='0'">去查看</el-button>
+                                <el-button type="primary" v-else>去处理</el-button>
                             </el-col>
-                            <el-col :span="12">
-                                <h3>1</h3>
-                                <p>待接单</p>
-                                <el-button type="primary">去查看</el-button>
+                            <el-col :span="8">
+                                <h3>{{indexData.waitSendCount}}</h3>
+                                <p>待发货订单</p>
+                                <el-button v-if="indexData.waitSendCount=='0'">去查看</el-button>
+                                <el-button type="primary" v-else>去处理</el-button>
+                            </el-col>
+                            <el-col :span="8">
+                                <h3>{{indexData.refundingCount}}</h3>
+                                <p>待退款订单</p>
+                                <el-button v-if="indexData.refundingCount=='0'">去查看</el-button>
+                                <el-button type="primary" v-else>去处理</el-button>
                             </el-col>
                         </el-row>
                     </div>
@@ -97,22 +135,49 @@
 <script>
 import {mapState} from 'vuex'
 import ComparedData from '@/page/common/ComparedData';
+import ShopBusinessInfo from '@/page/common/ShopBusinessInfo';
 export default {
     components: {
-        ComparedData
+        ComparedData,
+        ShopBusinessInfo
     },
     data() {
         return {
-            bannerList: [{
-                title: "a",
-                banner: 'https://img.qiyuns.com/f32823322116b632d5d4fd762e9ee275',
-                bannerUrl: 'http://www.baidu.com'
-            }, {
-                title: "ab",
-                banner: 'https://img.qiyuns.com/cff2ac65bc447dbbfbe41759667016f0',
-                bannerUrl: 'http://www.baidu.com'
-            }],
-            time: '2019-05-15 12:47:13'
+            indexData: {
+                "afterSaleCount": "",
+                "avgScore": "",
+                "bannerList": [],
+                "businessStatus": "",
+                "custId": "",
+                "evaluateCount": "",
+                "isInWBusiness": "",
+                "logo": "",
+                "orderBean": {
+                    "boxAmount": "",
+                    "boxComm": "",
+                    "freight": "",
+                    "goodsAmount": "",
+                    "goodsComm": "",
+                    "payAmount": "",
+                    "payCount": "",
+                    "refundAmount": "",
+                    "refundCount": "",
+                    "shopDiscount": "",
+                    "orderData": "",
+                    "orderCount": "",
+                    "turnData": "",
+                    "turnover": ""
+                },
+                "platformStatus": "",
+                "shopName": "",
+                "time": "",
+                "todayOrderIncome": "",
+                "todayValidOrder": "",
+                "typeName": "",
+                "waitCount": "",
+                "waitSendCount": "",
+                "refundingCount": ""
+            }
         }
     },
     computed: {
@@ -122,6 +187,16 @@ export default {
         bg(url) {
             return `background: url(${url}) no-repeat; background-size: 100% 100%`;
         }
+    },
+    created() {
+        let _this = this;
+        _this.$api.ajaxReadPost('/home/queryWaiMaiBusinessInfo', null, function(result){
+            if(result && result.resultcode==0){
+                _this.indexData = result.result;
+            }else{
+
+            }
+        });
     },
     mounted() {
         this.$nextTick(function(){
@@ -171,6 +246,15 @@ export default {
         text-decoration: underline;
     }
 
-    .todoBlock p{margin-bottom: 10px;}
+    .todoBlock, .todoBlock p{
+        margin-bottom: 15px;
+    }
 
+    .detailData{
+        margin-bottom: 50px;
+        text-align: center;
+    }
+    .detailData .el-col{
+        margin-bottom: 15px;
+    }
 </style>
